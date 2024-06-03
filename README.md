@@ -8,6 +8,15 @@ python版本大于等于3.10
 
 ## 运行
 
+在`common.py`自定义Gitlab的token和address信息
+
+```
+# gitlab上的token
+GITLAB_TOKEN = 'xxxxxxxxxxxxxxx'
+# 项目地址
+GITLAB_ADDR = '127.0.0.1:8080/root'
+```
+
 用户可根据项目需求在`main.py`里调用相应函数（下面是clone根目录下所有项目的代码示例）
 
 ```python

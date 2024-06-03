@@ -1,9 +1,7 @@
 # gitlab上的token
-from gitlab import ProjectGitLabInfo
-
-GITLAB_TOKEN = 'xxxxxx'
+GITLAB_TOKEN = 'xxxxxxxxxxxxxxx'
 # 项目地址
-GITLAB_ADDR = 'xxxxx'
+GITLAB_ADDR = '127.0.0.1:8080/root'
 
 
 
