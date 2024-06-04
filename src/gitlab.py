@@ -41,7 +41,7 @@ class GitLabInfo:
         self.token = token
 
     @abstractmethod
-    def get_need_projects_json(self, id: int | None) -> list:
+    def get_raw_projects_json(self, id: int | None = None) -> list:
         pass
 
     @abstractmethod
@@ -49,7 +49,7 @@ class GitLabInfo:
         pass
 
     def clone(self, id: int | None = None):
-        gitlab_infos = self.get_gitlab_infos(id)
+        gitlab_infos = self.clean_gitlab_infos(id)
         processes = []
         for index, project in enumerate(gitlab_infos):
             process = project.run_async()
@@ -60,9 +60,9 @@ class GitLabInfo:
         #     process.wait()
         print(f"下载完成，项目数量为{len(gitlab_infos)}")
 
-    def get_gitlab_infos(self, id: int | None) -> list[GitLabProjectBasicInfo]:
+    def clean_gitlab_infos(self, id: int | None = None) -> list[GitLabProjectBasicInfo]:
         gitlab_infos = []
-        all_projects_json = self.get_need_projects_json(id)
+        all_projects_json = self.get_raw_projects_json(id)
         for project in all_projects_json:
             if not project['archived']:
                 url = project['ssh_url_to_repo']
@@ -99,7 +99,9 @@ class GroupGitLabInfo(GitLabInfo):
         all_projects_json = json.loads(page_group.read().decode())['projects']
         return all_projects_json
 
-    def get_need_projects_json(self, id: int | None) -> list:
+    def get_raw_projects_json(self, id: int | None = None) -> list:
+        if id is None:
+            raise Exception("group_id不允许为空")
         all_sub_groups_json = self.get_sub_groups_json(id)
         all_sub_projects_json = self.get_sub_projects_json(id)
         if len(all_sub_projects_json) == 0:
@@ -107,7 +109,7 @@ class GroupGitLabInfo(GitLabInfo):
 
         for group in all_sub_groups_json:
             group_id = group['id']
-            all_sub_projects_json += self.get_need_projects_json(group_id)
+            all_sub_projects_json += self.get_raw_projects_json(group_id)
         return all_sub_projects_json
 
     def url(self, id: int | None, page_index: int | None) -> str:
@@ -132,7 +134,7 @@ class ProjectGitLabInfo(GitLabInfo):
     def __init__(self, address: str, token: str):
         super().__init__(address, token)
 
-    def get_need_projects_json(self, id: int | None) -> list:
+    def get_raw_projects_json(self, id: int | None = None) -> list:
         all_projects_json = []
         if id is None:
             page_index = 1
@@ -163,6 +165,3 @@ class ProjectGitLabInfo(GitLabInfo):
                     f"&per_page={GitLabInfo.PER_PAGE}")
         else:
             raise Exception("error")
-
-
-

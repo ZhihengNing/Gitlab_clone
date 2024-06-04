@@ -8,16 +8,18 @@ python版本大于等于3.10
 
 ## 运行
 
-在`common.py`自定义Gitlab的token和address信息
+找到`config`文件夹，在`config-template.json`中自定义Gitlab的token和address字段，并将其重命名为`config.json`
 
-```
-# gitlab上的token
-GITLAB_TOKEN = 'xxxxxxxxxxxxxxx'
-# 项目地址
-GITLAB_ADDR = '127.0.0.1:8080/root'
+```json
+{
+  "gitlabToken": "xxxxxxxxxxxxxxx",
+  "gitlabAddress":"127.0.0.1:8080"
+}
 ```
 
-用户可根据项目需求在`main.py`里调用相应函数（下面是clone根目录下所有项目的代码示例）
+根据项目需求在`main.py`里调用相应函数
+
+下面是clone根目录下所有项目的代码示例：
 
 ```python
 # clone根目录下所有项目
@@ -42,7 +44,9 @@ clone_all_projects()
 
 ```
 
-```shell
+运行`main.py`
+
+```python
 python main.py
 ```
 
