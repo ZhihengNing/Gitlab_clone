@@ -10,7 +10,7 @@ python版本大于等于3.10
 
 找到`config`文件夹，在`config-template.json`中填写Gitlab的token和address字段（其中token可以在访问令牌中添加），并将其重命名为`config.json`
 
-![image-20240604171025245](README.assets/image-20240604171025245.png)
+![image-20240604171025245](./README.assets/image-20240604171025245.png)
 
 ```json
 {
