@@ -1,4 +1,4 @@
-from src.util import read_json
+from util import read_json
 
 gitlab = read_json('../config/config.json')
 
