@@ -21,6 +21,5 @@ def clone_projects_by_ids(project_ids: list[int]):
         gitlab.clone(project_id)
 
 
-# clone_all_projects()
-gitlab = ProjectGitLabInfo(address=GITLAB_ADDR, token=GITLAB_TOKEN)
-print(len(gitlab.clean_gitlab_infos()))
+clone_all_projects()
+
