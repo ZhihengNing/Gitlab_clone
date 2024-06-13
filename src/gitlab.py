@@ -65,7 +65,7 @@ class GitLabInfo:
         all_projects_json = self.get_raw_projects_json(id)
         for project in all_projects_json:
             if not project['archived']:
-                url = project['ssh_url_to_repo']
+                url = project['http_url_to_repo']
                 path = project['path_with_namespace']
 
                 gitlab_info = GitLabProjectBasicInfo(url, path)
