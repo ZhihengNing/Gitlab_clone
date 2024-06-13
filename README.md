@@ -46,9 +46,12 @@ clone_all_projects()
 
 ```
 
+ps：根据id clone（clone_projects_by_ids）项目能有效节约计算机的进程资源，建议不要使用clone_all_projects方法
+
 运行`main.py`
 
 ```python
+cd src
 python main.py
 ```
 

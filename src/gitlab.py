@@ -67,7 +67,7 @@ class GitLabInfo:
             if not project['archived']:
                 url = project['http_url_to_repo']
                 path = project['path_with_namespace']
-
+                path="../project/"+path
                 gitlab_info = GitLabProjectBasicInfo(url, path)
                 gitlab_infos.append(gitlab_info)
         return gitlab_infos
