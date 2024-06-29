@@ -12,11 +12,11 @@ class GitlabClient:
     def set_store_path(self, path: str):
         self.path = path
 
-    # clone所有根目录下的项目
+    # clone所有根目录下的项目，path为存储路径
     def clone_all_projects(self, path: str | None = None):
         ProjectGitLabInfo(address=self.address, token=self.token, store_path=path).clone()
 
-    # clone某个组下的项目
+    # clone某个组下的项目，path为存储路径
     def clone_group_projects(self, group_ids: list[int], path: str | None = None):
         if group_ids is None:
             raise ValueError('group_ids must be specified')
@@ -25,7 +25,7 @@ class GitlabClient:
         for group_id in group_ids:
             gitlab.clone(group_id)
 
-    # 根据id clone所有项目
+    # 根据id clone所有项目，path为存储路径
     def clone_projects_by_ids(self, project_ids: list[int], path: str | None = None):
         if project_ids is None:
             raise ValueError('project_ids must be specified')

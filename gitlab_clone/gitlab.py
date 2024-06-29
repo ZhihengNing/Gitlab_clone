@@ -62,8 +62,6 @@ class GitLabInfo:
                 url = project['http_url_to_repo']
                 path = project['path_with_namespace']
                 store_path = self.store_path + path
-                print(self.store_path)
-                print(store_path)
                 gitlab_info = GitLabProjectBasicInfo(url, store_path)
                 gitlab_infos.append(gitlab_info)
         return gitlab_infos

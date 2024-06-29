@@ -8,7 +8,7 @@ python版本大于等于3.10
 
 ## 运行
 
-找到`config`文件夹，在`config-template.json`中填写Gitlab的token和address字段（其中token可以在访问令牌中添加），并将其重命名为`config.json`
+在`git_clone_test`包下找到`config`文件夹，在`config-template.json`中填写Gitlab的token和address字段（其中token可以在访问令牌中添加），并将其重命名为`config.json`
 
 ![image-20240604171025245](./README.assets/image-20240604171025245.png)
 
@@ -24,25 +24,17 @@ python版本大于等于3.10
 下面是clone根目录下所有项目的代码示例：
 
 ```python
-# clone根目录下所有项目
-def clone_all_projects():
-    gitlab = ProjectGitLabInfo(address=GITLAB_ADDR, token=GITLAB_TOKEN)
-    gitlab.clone()
+gitlab = read_json('./config/config.json')
 
+# gitlab上的token
+GITLAB_TOKEN = gitlab['gitlabToken']
+# 项目地址
+GITLAB_ADDR = gitlab['gitlabAddress']
 
-# clone某个组下所有项目
-def clone_group_projects(group_id: int):
-    gitlab = GroupGitLabInfo(address=GITLAB_ADDR, token=GITLAB_TOKEN)
-    gitlab.clone(group_id)
-
-
-# 根据id clone所有项目
-def clone_projects_by_ids(project_ids: list[int]):
-    gitlab = ProjectGitLabInfo(address=GITLAB_ADDR, token=GITLAB_TOKEN)
-    for project_id in project_ids:
-        gitlab.clone(project_id)
-        
-clone_all_projects()
+if __name__ == '__main__':
+    gitlab_client = GitlabClient(token=GITLAB_TOKEN, address=GITLAB_ADDR)
+    # clone全部项目到../project/文件夹中
+    gitlab_client.clone_all_projects("../project/")
 
 ```
 
@@ -51,7 +43,7 @@ ps：根据id clone（clone_projects_by_ids）项目能有效节约计算机的�
 运行`main.py`
 
 ```python
-cd src
+cd git_clone_test
 python main.py
 ```
 
